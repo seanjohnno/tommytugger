@@ -11,7 +11,7 @@ import com.titchyrascal.json.read.Puller;
 
 public class PullerTest extends BaseJsonTest {
 
-	private static Event[] events =  {
+	protected static Event[] EVENTS =  {
 		new Event(Event.EventType.StartObject),
 		new Event(Event.EventType.Key, "Name"),
 		new Event(Event.EventType.Value, "Dave"),
@@ -47,12 +47,16 @@ public class PullerTest extends BaseJsonTest {
 	@Test
 	public void testJsonDocument() throws IOException {
 		InputStream doc = getJsonInputStream();
-		Puller pp = new Puller(doc);
-		for(int i = 0; i < events.length; i++) {
+		testJsonDocument(doc);
+	}
+	
+	protected void testJsonDocument(InputStream is) throws IOException {
+		Puller pp = new Puller(is);
+		for(int i = 0; i < EVENTS.length; i++) {
 			Event lhs = pp.next();
-			Event rhs = events[i];
+			Event rhs = EVENTS[i];
 			Assert.assertEquals( lhs.toString() + " vs " + rhs.toString(), lhs, rhs );
 		}
-		doc.close();
+		is.close();
 	}
 }
