@@ -1,0 +1,35 @@
+// START SNIPPET use-plugin
+apply plugin: 'java'
+// END SNIPPET use-plugin
+// START SNIPPET use-eclipse-plugin
+apply plugin: 'eclipse'
+// END SNIPPET use-eclipse-plugin
+
+// START SNIPPET customization
+sourceCompatibility = 1.8
+version = '0.1'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'TommyTugger',
+                   'Implementation-Version': version
+    }
+}
+// END SNIPPET customization
+
+// START SNIPPET repo
+repositories {
+    mavenCentral()
+}
+// END SNIPPET repo
+
+// START SNIPPET dependencies
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+// END SNIPPET dependencies
+
+// START SNIPPET task-customization
+test {
+    systemProperties 'property': 'value'
+}
+// END SNIPPET task-customization
